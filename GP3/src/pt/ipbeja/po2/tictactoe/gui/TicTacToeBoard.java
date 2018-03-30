@@ -13,7 +13,7 @@ import static java.lang.System.exit;
 
 public class TicTacToeBoard extends GridPane {
 
-    private TicTacToeGame gameModel = new TicTacToeGame();
+    private TicTacToeGame gameModel = new TicTacToeGame(this);
 
     public TicTacToeBoard() {
 
@@ -58,29 +58,20 @@ public class TicTacToeBoard extends GridPane {
                 button.setTac();
             }
 
-            gameModel.checkDraw();
-            gameModel.checkBoard();
-
-            if(gameModel.checkDraw()){
-                draw();
-            }
-            else if (gameModel.checkBoard() == 1 || gameModel.checkBoard() == 2)
-            {
-                playerWins(gameModel.checkBoard());
-            }
         }
     }
 
-    void draw(){
+    public void draw(){
         Alert alert = new Alert(Alert.AlertType.INFORMATION, "Empate!");
         alert.showAndWait();
         exit(0);
     }
 
 
-    void playerWins(int player){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION, "Jogador " + player + " Ganhou!");
-        alert.showAndWait();
-        exit(0);
+    public void playerWins(int player){
+        String s = player % 2 == 0 ? "X" : "O"; // Se 'player' for par, 's' toma o valor de "X", caso contrário "O"
+        Alert alert = new Alert(Alert.AlertType.INFORMATION,
+                "Player '" + s + "' won!");
+        alert.show();
     }
 }
